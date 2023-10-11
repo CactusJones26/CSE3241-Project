@@ -3,15 +3,15 @@ public class Warehouse {
     // Class variables
     private int droneCapacity;
     private int storageCapacity;
-    private String warehouseID;
+    private String warehouseId;
     private String city;
     private String address;
     private String phoneNumber;
     private String manager;
 
     // Constructor
-    public Warehouse(String warehouseID, int droneCapacity, int storageCapacity, String city, String address, String phoneNumber, String manager) {
-        this.warehouseID = warehouseID;
+    public Warehouse(String warehouseId, int droneCapacity, int storageCapacity, String city, String address, String phoneNumber, String manager) {
+        this.warehouseId = warehouseId;
         this.droneCapacity = droneCapacity;
         this.storageCapacity = storageCapacity;
         this.city = city;
@@ -21,8 +21,8 @@ public class Warehouse {
     }
 
     /*-------- Getter Methods -------*/
-    public String getWarehouseID() {
-        return this.warehouseID;
+    public String getWarehouseId() {
+        return this.warehouseId;
     }
 
     public int getDroneCapacity() {
@@ -50,8 +50,8 @@ public class Warehouse {
     }
 
     /*-------- Setter Methods --------*/
-    public void setWarehouseID(String id) {
-        this.warehouseID = id;
+    public void setWarehouseId(String id) {
+        this.warehouseId = id;
     }
 
     public void setDroneCapacity(int capacity) {

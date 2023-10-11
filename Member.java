@@ -9,7 +9,7 @@ public class Member {
     private String email;
     private String startDate;
     private int warehouseDistance;
-    
+    private List<Review> userReviews;
 
     // Constructor
     public Member(String userId, String firstName, String lastName, String address, String phoneNumber, String email, String startDate, int warehouseDistance) {
@@ -21,12 +21,18 @@ public class Member {
         this.email = email;
         this.startDate = startDate;
         this.warehouseDistance = warehouseDistance;
+        this.userReviews = new ArrayList<>();
     }
 
     /*-------- Getter Methods -------*/
     public String getUserId() {
         return this.userId;
     }
+
+    public List<Review> getUserReviews(){
+        return this.userReviews;
+    }
+
 
     public String getFirstName() {
         return this.firstName;
@@ -61,6 +67,10 @@ public class Member {
         this.userId = id;
     }
 
+    public void addUserReview(Review review){
+        this.userReviews.add(review);
+    }
+
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
@@ -87,5 +97,15 @@ public class Member {
 
     public void setWarehouseDistance(int distance) {
         this.warehouseDistance = distance;
+    }
+
+    public Review deleteUserReview(int reviewId){
+        Review deleted = null;
+        for (int i = 0; i < this.userReviews; i++){
+            if (this.userReviews.get(i).getReviewId == reviewId){
+                deleted = this.userReviews.remove(i);
+            }
+        }
+        return deleted;
     }
 }
