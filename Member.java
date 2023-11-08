@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Member {
 
     // Class variables 
@@ -101,11 +104,21 @@ public class Member {
 
     public Review deleteUserReview(int reviewId){
         Review deleted = null;
-        for (int i = 0; i < this.userReviews; i++){
-            if (this.userReviews.get(i).getReviewId == reviewId){
+        for (int i = 0; i < this.userReviews.size(); i++){
+            if (this.userReviews.get(i).getReviewId() == reviewId){
                 deleted = this.userReviews.remove(i);
             }
         }
         return deleted;
+    }
+    
+    public Review getReview(int reviewId) {
+    	Review rev = null;
+    	for (int i = 0; i < this.userReviews.size(); i++) {
+    		if (this.userReviews.get(i).getReviewId() == reviewId) {
+    			rev = this.userReviews.get(i);
+    		}
+    	}
+    	return rev;
     }
 }

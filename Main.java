@@ -1,15 +1,95 @@
+import java.sql.PreparedStatement;
+import java.sql.DriverManager;
+import java.sql.DatabaseMetaData;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.*;
+
 public class Main {
+	
+	/**
+	 * The database file name.
+	 * @NOTE: CHANGE THIS TO YOUR LOCAL PATH
+	 */
+	private static String DATABASE = "";
+	
+	static Connection conn = null;
+	
+	public static Connection initializeDB(String databaseFileName) {
+		String url = "jdbc:sqlite:" + databaseFileName;
+		
+		try {
+            conn = DriverManager.getConnection(url);
+            if (conn != null) {
+                DatabaseMetaData meta = conn.getMetaData();
+                System.out.println("The driver name is " + meta.getDriverName());
+                System.out.println("The connection to the database was successful.");
+            } else {
+            	System.out.println("Null Connection");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            System.out.println("There was a problem connecting to the database.");
+        }
+        return conn;
+	}
+	
+	public static void sqlQuery(Connection conn, String sql){
+        try {
+        	Statement stmt = conn.createStatement();
+        	ResultSet rs = stmt.executeQuery(sql);
+        	ResultSetMetaData rsmd = rs.getMetaData();
+        	int columnCount = rsmd.getColumnCount();
+        	for (int i = 1; i <= columnCount; i++) {
+        		String value = rsmd.getColumnName(i);
+        		System.out.print(value);
+        		if (i < columnCount) System.out.print(",  ");
+        	}
+			System.out.print("\n");
+        	while (rs.next()) {
+        		for (int i = 1; i <= columnCount; i++) {
+        			String columnValue = rs.getString(i);
+            		System.out.print(columnValue);
+            		if (i < columnCount) System.out.print(",  ");
+        		}
+    			System.out.print("\n");
+        	}
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+	
     public static void main(String[] args) {
-        Data newData = new Data();
-        System.out.println("Hello World!");
-        Warehouse w = new Warehouse("1", 1000, 100, "Columbus", "1234 W Northwood", "6142224034", "Kevin Dong");
-        newData.addWarehouse(w);
-        Member m = new Member("1", "Kevin", "Dong", "West 9th", "911", "madrid.1@osu.edu", "1/1/600", 10);
-        newData.addMember(m);
-        Review r = new Review(1, "1", "Was decent,", 5, "10/22/2023", "Equipment Usage");
-        m.addUserReview(r);
-        System.out.println(newData.getWarehouse("1").getDroneCapacity());
-        System.out.println(newData.getMember("1").getEmail());
-        System.out.println(newData.getMember("1").getReview(1).getComment());
+    
+    	/* 
+    	 * Provide Functionality to
+    	 * a. Add new records (implement at least 3 of the main records, e.g. members, equipment, warehouse, ...)
+    	 * b. Edit/Delete records (e.g. members, equipment, warehouse, ..)
+    	 * c. Search (e.g. members, equipment, warehouse, ..)
+    	 * d. Useful Reports (not to be implemented yet
+    	 * 
+    	 */
+    	
+    	// Connect to the database
+    	Connection conn = initializeDB(DATABASE);
+    	
+    	// Scanner for user input
+    	Scanner s = new Scanner(System.in);
+    	
+    	// Initialize new menu to begin program
+    	Menu men = new Menu();
+    	
+    	// Prompt the user with the begin menu
+    	men.begin();
+    	
+    	
+    	// Close the scanner
+    	s.close();
+    	
+
+
     }
 }
